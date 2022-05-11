@@ -1,0 +1,23 @@
+version: '3'
+services:
+  nginx:
+    build: nginx
+    hostname: nginx
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt:z
+      - ./data/certbot/www:/var/www/certbot:z
+      - ./nginx/conf.d:/etc/nginx/conf.d:z
+    env_file: .env
+    restart: unless-stopped
+    depends_on: 
+      - certbot
+  
+  certbot:
+    build: certbot
+    hostname: certbot
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt:z
+      - ./data/certbot/www:/var/www/certbot:z
+      - ./nginx/conf.d:/etc/nginx/conf.d:z
+    env_file: .env
+    restart: unless-stopped
