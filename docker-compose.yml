@@ -6,6 +6,7 @@ services:
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt:z
       - ./data/certbot/www:/var/www/certbot:z
+      - ./data/html:/usr/share/nginx/html:z
       - ./nginx/conf.d:/etc/nginx/conf.d:z
     env_file: .env
     restart: unless-stopped
